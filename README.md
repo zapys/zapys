@@ -5,3 +5,4 @@ Stack:
 - Postgres 15.x
 - Django 4.1.7
 - Requests
+- some stuff

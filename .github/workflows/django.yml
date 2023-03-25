@@ -29,3 +29,4 @@ jobs:
       run: |
         #python manage.py test
         echo "Hello github"
+        echo "Your code is great, ready to deploy to DO"

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-
+from django.urls import reverse_lazy
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -35,13 +35,21 @@ class UserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+    ROLES = [
+        ('BIS', 'Business'),
+        ('CUS', 'Customer')
+    ]
     username = None
 
     email = models.EmailField(verbose_name='email address', unique=True, help_text='Privet')
+    role = models.CharField(max_length=3, choices=ROLES)
     is_business = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()
 
     def __str__(self) -> str:
-        return f'{self.first_name} {self.last_name}'
+        return self.email
+
+    def get_absolute_url(self):
+        return reverse_lazy('profile', kwargs={'pk' : self.pk})

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'index' %}">Home</a>
+    <p>this is user profile:</p>
+    <p>id: {{ user.pk }}</p>
+    <p>email: {{ user.email }}</p>
+    <p>role: {{ user.role }}</p>
+    <p>url: {{ user.get_absolute_url }}</p>
+{% endblock content %}

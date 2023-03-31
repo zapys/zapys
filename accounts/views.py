@@ -1,22 +1,30 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .forms import Signupform
 from .models import CustomUser
 from django.shortcuts import get_object_or_404
+from .forms import SignupForm
+
+# from django.urls import reverse_lazy
+# from django.views.generic import CreateView
+
+# class SignUpView(CreateView):
+#     form_class = SignupForm
+#     success_url = reverse_lazy("index")
+#     template_name = "registration/signup.html"
 
 
 def signup(request):
     if request.method == 'POST':
-        form = Signupform(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get('email')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(email=email, password=raw_password)
+            password = form.cleaned_data.get('password1')
+            user = authenticate(email=email, password=password)
             login(request, user)
             return redirect('index')
     else:
-        form = Signupform()
+        form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form})
 
 

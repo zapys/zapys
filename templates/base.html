@@ -6,6 +6,14 @@
 </head>
 <body>
 {%block content%}
+    {% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">Logout</a></p><hr>
+
+        Welcome, {{ user.email }}
+    {% else %}
+    <p><a href="{% url 'login' %}">Login</a></p>
+    <p><a href="{% url 'signup' %}">Signup</a></p>
+    {% endif %}
 {%endblock content%}
 </body>
 </html>

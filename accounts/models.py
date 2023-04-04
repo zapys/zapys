@@ -40,10 +40,9 @@ class CustomUser(AbstractUser):
         ('CUS', 'Customer')
     ]
     username = None
-
-    email = models.EmailField(verbose_name='email address', unique=True, help_text='Privet')
+    email = models.EmailField(verbose_name='email', unique=True)
     role = models.CharField(max_length=3, choices=ROLES)
-    is_business = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()

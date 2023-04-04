@@ -1,13 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-        <p>Email: {{ form.email }}</p>
-        <p>Password: {{ form.password1 }}</p>
-        <p>Confirm password: {{ form.password2 }}</p>
-        <p>You are: {{ form.role }}</p>
-      <input type="submit" value="Submit">
-  </form>
+    <div id="signup">
+        <div class="container">
+            <div id="signup-row" class="row justify-content-center align-items-center">
+                <div id="signup-column" class="col-md-3">
+                    <div id="signup-box" class="col-md-12">
+                        <form id="signup-form" class="form" action="" method="post">
+                            {% csrf_token %}
+                            <h3 class="text-center text-info-emphasis mt-4">Sign up</h3>
+                            {{ form.non_field_errors }}
+                            <div class="form-group">
+                                <label for="id_email" class="text-info-emphasis">Email:</label><br>
+                                <input type="text" name="email" id="id_email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password1" class="text-info-emphasis">Password:</label><br>
+                                <input type="password" name="password1" id="id_password1" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password2" class="text-info-emphasis">Confirm password:</label><br>
+                                <input type="password" name="password2" id="id_password2" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_role" class="text-info-emphasis">Role:</label><br>
+                                <select type="text" name="role" id="id_role" class="form-control" required>
+                                    {% for item in form.role %}
+                                        {{ item }}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="submit" name="submit" class="btn text-bg-success btn-md mt-2" value="Submit">
+                            {% for error in form.non_field_errors %}
+                                <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ error }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
